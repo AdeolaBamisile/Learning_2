@@ -26,13 +26,11 @@ const authLink = new SetContextLink(({ headers }) => {
   };
 });
 
-const httpLink = new HttpLink({
-  uri: import.meta.env.PROD ? "/graphql" : "http://localhost:3001/graphql",
-});
+const httpLink = new HttpLink({ uri: "/graphql" });
 
 const getWsUrl = () => {
   if (import.meta.env.DEV) {
-    return "ws://localhost:3001/graphql";
+    return "ws://localhost:3001";
   }
 
   const host = window.location.host;
@@ -43,7 +41,7 @@ const getWsUrl = () => {
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: getWsUrl(),
+    url: getWsUrl,
   }),
 );
 

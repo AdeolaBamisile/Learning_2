@@ -10,7 +10,6 @@ const cors = require("cors");
 const express = require("express");
 const { makeExecutableSchema } = require("@graphql-tools/schema");
 const http = require("http");
-const path = require("path");
 
 const typeDefs = require("./schema");
 const resolvers = require("./resolvers");
@@ -55,6 +54,8 @@ const startServer = async (port) => {
 
   await server.start();
 
+  app.use(express.static("dist"));
+
   app.use(
     "/graphql",
     cors(),
@@ -68,15 +69,8 @@ const startServer = async (port) => {
     }),
   );
 
-  if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../frontend/dist")));
-    app.get("/*splat", (request, response) => {
-      response.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
-    });
-  }
-
   httpServer.listen(port, () =>
-    console.log(`Server running at http://localhost:${port}`),
+    console.log(`Server runnin at http://localhost:${port}`),
   );
 };
 
