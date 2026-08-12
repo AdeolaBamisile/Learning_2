@@ -1,4 +1,4 @@
-process.env.NODE_ENV == "production" &&
+process.env.NODE_ENV !== "production" &&
   require("node:dns/promises").setServers(["8.8.8.8", "1.1.1.1"]);
 require("dotenv").config();
 
