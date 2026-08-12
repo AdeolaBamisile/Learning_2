@@ -30,7 +30,7 @@ const httpLink = new HttpLink({ uri: "/graphql" });
 
 const getWsUrl = () => {
   if (import.meta.env.DEV) {
-    return "ws://localhost:3001";
+    return "ws://localhost:3001/graphql";
   }
 
   const host = window.location.host;
@@ -41,7 +41,7 @@ const getWsUrl = () => {
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: getWsUrl,
+    url: getWsUrl(),
   }),
 );
 
